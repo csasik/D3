@@ -28,6 +28,8 @@ var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
+var texts = d3.select("body").append("div")
+        .attr("class","text");
   
 d3.csv("../data/data.csv").then(function(csvData, error) {
     if (error) throw error;
@@ -63,7 +65,7 @@ d3.csv("../data/data.csv").then(function(csvData, error) {
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - chartMargin.left)
-      .attr("x",0 - (chartHeight / 2))
+      .attr("x", chartWidth - 600 )
       .style("text-anchor", "middle")
       .text("Lacks");
 
@@ -86,25 +88,25 @@ d3.csv("../data/data.csv").then(function(csvData, error) {
       .attr("cy", d => yLinearScale(d.healthcare))
       .attr("fill","lightblue")
       .attr("stroke-width", 5)
-      .text(function(d){return d.abbr})
-      .on("mouseover", function(d) {
-        tooltip.transition()
-         .duration(200)
-         .style("opacity", .9);
+      //.text(function(d){return d.abbr})
+      // .on("mouseover", function(d) {
+      //   tooltip.transition()
+      //    .duration(200)
+      //    .style("opacity", .9);
     
-    tooltip.html(d["abbr"])
-         .style("left", (d3.event.pageX + 5) + "px")
-         .style("top", (d3.event.pageY - 28) + "px");
+    var texts2 = chartGroup.selectAll(".text").append("g")
+      .data(csvData)
+      .enter()
+      .append("text")
+      .attr("x", d => xScale(d.poverty))
+      .attr("y", d => yLinearScale(d.healthcare))
+      .text(function(d){return d.abbr})
+      .style("text-anchor", "middle")
+
+    
 })
 
-// chartGroup.html(function(d) {
-//   return (`<text>${d.abbr}</text>`);
-// });
-
-    // chartGroup.append("text")
-    // .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top + 30})`)
-    // .attr("class", "axisText")
-    // .text("in Poverty");
 
 
-})
+
+
