@@ -28,8 +28,12 @@ var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
+// div for state labels
 var texts = d3.select("body").append("div")
-        .attr("class","text");
+   .attr("class","text");
+
+var texts = d3.select("body").append("div")
+  .attr("class","yaxis");
   
 d3.csv("../data/data.csv").then(function(csvData, error) {
     if (error) throw error;
@@ -64,10 +68,12 @@ d3.csv("../data/data.csv").then(function(csvData, error) {
     // text label for y axis
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - chartMargin.left)
-      .attr("x", chartWidth - 600 )
+      .attr("y", chartMargin.left - 50)
+      .attr("x",0 - (chartHeight / 2))
+      .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Lacks");
+      .text("Lacks Healthcare");    
+      
 
     var bottomAxis = d3.axisBottom(xScale);
     var leftAxis = d3.axisLeft(yLinearScale);
