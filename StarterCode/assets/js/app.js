@@ -94,11 +94,7 @@ d3.csv("../data/data.csv").then(function(csvData, error) {
       .attr("cy", d => yLinearScale(d.healthcare))
       .attr("fill","lightblue")
       .attr("stroke-width", 5)
-      //.text(function(d){return d.abbr})
-      // .on("mouseover", function(d) {
-      //   tooltip.transition()
-      //    .duration(200)
-      //    .style("opacity", .9);
+      
     
     var texts2 = chartGroup.selectAll(".text").append("g")
       .data(csvData)
